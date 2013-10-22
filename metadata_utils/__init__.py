@@ -1,7 +1,7 @@
 from xml.sax.saxutils import escape, unescape
 
 # https://wiki.python.org/moin/EscapingHtml
-# escape() and unescape() takes care of &, < and > - we need to handle quotes, so we don't break things
+# escape() and unescape() takes care of "&" , "<" and ">" - we need to handle quotes, so we don't break things
 html_attribute_escape_table = {
      '"': "&quot;",
      "'": "&apos;"
