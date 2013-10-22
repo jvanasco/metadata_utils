@@ -1,2 +1,6 @@
+-unreleased-
+	* added `force_clean_ascii_NFKD`
+	* added `force_clean_ascii_NFKC`
+
 0.0.1
-	initial import
+	* initial import
