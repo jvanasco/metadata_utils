@@ -1,6 +1,7 @@
--unreleased-
+0.0.2
 	* added `force_clean_ascii_NFKD`
 	* added `force_clean_ascii_NFKC`
+	* flake8
 
 0.0.1
 	* initial import
