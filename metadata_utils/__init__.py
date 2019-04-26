@@ -1,6 +1,8 @@
+import unicodedata
+
+
 from xml.sax.saxutils import escape, unescape
 
-import unicodedata
 
 
 # https://wiki.python.org/moin/EscapingHtml
@@ -11,7 +13,9 @@ html_attribute_escape_table = {
 }
 
 
-html_attribute_unescape_table = {v: k for (k, v) in html_attribute_escape_table.items()}
+html_attribute_unescape_table = {v: k for (k, v)
+                                 in list(html_attribute_escape_table.items())
+                                 }
 
 
 def html_attribute_escape(text):
@@ -23,6 +27,7 @@ def html_attribute_unescape(text):
 
 
 ##
+
 
 def force_clean_ascii_NFKD(text):
     return unicodedata.normalize('NFKD', text).encode('ascii', 'ignore')

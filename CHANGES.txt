@@ -1,3 +1,7 @@
+0.1.0
+	* python 3 support
+	* tests
+
 0.0.2
 	* added `force_clean_ascii_NFKD`
 	* added `force_clean_ascii_NFKC`
