@@ -1,8 +1,11 @@
 import unicodedata
 
-
 from xml.sax.saxutils import escape, unescape
 
+__VERSION__ = '0.1.0'
+
+
+# ==============================================================================
 
 
 # https://wiki.python.org/moin/EscapingHtml

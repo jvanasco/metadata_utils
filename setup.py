@@ -1,7 +1,7 @@
 """metadata_utils installation script.
 """
 import os
-
+import re
 from setuptools import setup
 from setuptools import find_packages
 
@@ -13,12 +13,22 @@ try:
 except:
     pass
 
+# store version in the init.py
+with open(os.path.join(os.path.dirname(__file__),
+                       'metadata_utils',
+                       '__init__.py'
+                       )
+          ) as v_file:
+    VERSION = re.compile(
+        r".*__VERSION__ = '(.*?)'",
+        re.S).match(v_file.read()).group(1)
+
 requires = []
 
 setup(
     name="metadata_utils",
     description="Lightweight Metadata Support",
-    version="0.0.2",
+    version=VERSION,
     url="https://github.com/jvanasco/metadata_utils",
     author="Jonathan Vanasco",
     author_email="jonathan@findmeon.com",
