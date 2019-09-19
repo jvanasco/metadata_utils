@@ -2,7 +2,7 @@ import unicodedata
 
 from xml.sax.saxutils import escape, unescape
 
-__VERSION__ = '0.1.0'
+__VERSION__ = '0.1.1'
 
 
 # ==============================================================================
@@ -17,7 +17,7 @@ html_attribute_escape_table = {
 
 
 html_attribute_unescape_table = {v: k for (k, v)
-                                 in list(html_attribute_escape_table.items())
+                                 in html_attribute_escape_table.items()
                                  }
 
 
