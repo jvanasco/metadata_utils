@@ -9,8 +9,8 @@ import six
 
 class TestEscaping(unittest.TestCase):
     text_raw = """foo "' bar"""
-    text_escaped = 'foo &quot;&apos; bar'
-    text_escaped_twice = 'foo &amp;quot;&amp;apos; bar'
+    text_escaped = "foo &quot;&apos; bar"
+    text_escaped_twice = "foo &amp;quot;&amp;apos; bar"
 
     def test_escape(self):
         escaped = metadata_utils.html_attribute_escape(self.text_raw)
@@ -33,10 +33,9 @@ class TestEscaping(unittest.TestCase):
 
 
 class TestCleanAscii(unittest.TestCase):
-
     def test_NFKD(self):
-        text_unicode = u'El Ni\xf1o'  # u needed for 2/3 compat
-        text_clean_a = 'El Nino'  # downgrades
+        text_unicode = u"El Ni\xf1o"  # u needed for 2/3 compat
+        text_clean_a = "El Nino"  # downgrades
         escaped = metadata_utils.force_clean_ascii_NFKD(text_unicode)
         if six.PY2:
             # py2 is a string
@@ -46,8 +45,8 @@ class TestCleanAscii(unittest.TestCase):
             self.assertEqual(escaped, text_clean_a.encode())
 
     def test_NFKC(self):
-        text_unicode = u'El Ni\xf1o'  # u needed for 2/3 compat
-        text_clean_a = 'El Nio'  # strips
+        text_unicode = u"El Ni\xf1o"  # u needed for 2/3 compat
+        text_clean_a = "El Nio"  # strips
         escaped = metadata_utils.force_clean_ascii_NFKC(text_unicode)
         if six.PY2:
             # py2 is a string

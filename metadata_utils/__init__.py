@@ -2,7 +2,7 @@ import unicodedata
 
 from xml.sax.saxutils import escape, unescape
 
-__VERSION__ = '0.1.1'
+__VERSION__ = "0.1.2dev"
 
 
 # ==============================================================================
@@ -10,15 +10,10 @@ __VERSION__ = '0.1.1'
 
 # https://wiki.python.org/moin/EscapingHtml
 # escape() and unescape() takes care of "&" , "<" and ">" - we need to handle quotes, so we don't break things
-html_attribute_escape_table = {
-    '"': "&quot;",
-    "'": "&apos;",
-}
+html_attribute_escape_table = {'"': "&quot;", "'": "&apos;"}
 
 
-html_attribute_unescape_table = {v: k for (k, v)
-                                 in html_attribute_escape_table.items()
-                                 }
+html_attribute_unescape_table = {v: k for (k, v) in html_attribute_escape_table.items()}
 
 
 def html_attribute_escape(text):
@@ -33,8 +28,8 @@ def html_attribute_unescape(text):
 
 
 def force_clean_ascii_NFKD(text):
-    return unicodedata.normalize('NFKD', text).encode('ascii', 'ignore')
+    return unicodedata.normalize("NFKD", text).encode("ascii", "ignore")
 
 
 def force_clean_ascii_NFKC(text):
-    return unicodedata.normalize('NFKC', text).encode('ascii', 'ignore')
+    return unicodedata.normalize("NFKC", text).encode("ascii", "ignore")
