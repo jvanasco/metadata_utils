@@ -6,10 +6,9 @@ from setuptools import setup
 from setuptools import find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = ""
+long_description = description = ("Lightweight Metadata Support",)
 try:
-    README = open(os.path.join(here, "README.md")).read()
-    README = README.split("\n\n", 1)[0] + "\n"
+    long_description = open(os.path.join(here, "README.md")).read()
 except:
     pass
 
@@ -22,19 +21,19 @@ with open(
 requires = []
 tests_require = [
     "six",
-]
-testing_extras = tests_require + [
     "pytest",
 ]
+testing_extras = tests_require + []
 
 setup(
     name="metadata_utils",
     description="Lightweight Metadata Support",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     version=VERSION,
     url="https://github.com/jvanasco/metadata_utils",
     author="Jonathan Vanasco",
     author_email="jonathan@findmeon.com",
-    long_description=README,
     zip_safe=False,
     keywords="web",
     install_requires=requires,

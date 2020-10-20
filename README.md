@@ -3,4 +3,11 @@
 metadata_utils
 ==============
 
-lightweight support for metadata in html
+This package offers lightweight tools for dealing with metadata in HTML.
+
+The following functions are made available to streamline dealing with html encodings:
+
+* `html_attribute_escape`
+* `html_attribute_unescape`
+* `force_clean_ascii_NFKD`
+* `force_clean_ascii_NFKC`
