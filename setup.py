@@ -5,17 +5,14 @@ import re
 from setuptools import setup
 from setuptools import find_packages
 
-here = os.path.abspath(os.path.dirname(__file__))
-long_description = description = ("Lightweight Metadata Support",)
-try:
-    long_description = open(os.path.join(here, "README.md")).read()
-except:
-    pass
+HERE = os.path.abspath(os.path.dirname(__file__))
+
+long_description = description = "Lightweight Metadata Support"
+with open(os.path.join(HERE, "README.md")) as fp:
+    long_description = fp.read()
 
 # store version in the init.py
-with open(
-    os.path.join(os.path.dirname(__file__), "metadata_utils", "__init__.py")
-) as v_file:
+with open(os.path.join(HERE, "metadata_utils", "__init__.py")) as v_file:
     VERSION = re.compile(r'.*__VERSION__ = "(.*?)"', re.S).match(v_file.read()).group(1)
 
 requires = []
