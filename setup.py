@@ -12,7 +12,7 @@ with open(os.path.join(HERE, "README.md")) as fp:
     long_description = fp.read()
 
 # store version in the init.py
-with open(os.path.join(HERE, "metadata_utils", "__init__.py")) as v_file:
+with open(os.path.join(HERE, "src", "metadata_utils", "__init__.py")) as v_file:
     VERSION = re.compile(r'.*__VERSION__ = "(.*?)"', re.S).match(v_file.read()).group(1)
 
 requires = []
@@ -39,7 +39,10 @@ setup(
         "testing": testing_extras,
     },
     test_suite="tests",
-    packages=find_packages(),
+    packages=find_packages(
+        where="src",
+    ),
+    package_dir={"": "src"},
     include_package_data=True,
     classifiers=[
         "Intended Audience :: Developers",
