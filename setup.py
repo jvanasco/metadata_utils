@@ -17,7 +17,6 @@ with open(os.path.join(HERE, "src", "metadata_utils", "__init__.py")) as v_file:
 
 requires = []
 tests_require = [
-    "six",
     "pytest",
 ]
 testing_extras = tests_require + []
@@ -47,7 +46,6 @@ setup(
     classifiers=[
         "Intended Audience :: Developers",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
     ],

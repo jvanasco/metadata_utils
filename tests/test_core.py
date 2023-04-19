@@ -1,8 +1,6 @@
 import unittest
 import metadata_utils
 
-import six
-
 
 # ==============================================================================
 
@@ -34,23 +32,15 @@ class TestEscaping(unittest.TestCase):
 
 class TestCleanAscii(unittest.TestCase):
     def test_NFKD(self):
-        text_unicode = u"El Ni\xf1o"  # u needed for 2/3 compat
+        text_unicode = "El Ni\xf1o"  # u needed for 2/3 compat
         text_clean_a = "El Nino"  # downgrades
         escaped = metadata_utils.force_clean_ascii_NFKD(text_unicode)
-        if six.PY2:
-            # py2 is a string
-            self.assertEqual(escaped, text_clean_a)
-        else:
-            # py3 is a bytes
-            self.assertEqual(escaped, text_clean_a.encode())
+        # py3 is a bytes
+        self.assertEqual(escaped, text_clean_a.encode())
 
     def test_NFKC(self):
-        text_unicode = u"El Ni\xf1o"  # u needed for 2/3 compat
+        text_unicode = "El Ni\xf1o"  # u needed for 2/3 compat
         text_clean_a = "El Nio"  # strips
         escaped = metadata_utils.force_clean_ascii_NFKC(text_unicode)
-        if six.PY2:
-            # py2 is a string
-            self.assertEqual(escaped, text_clean_a)
-        else:
-            # py3 is a bytes
-            self.assertEqual(escaped, text_clean_a.encode())
+        # py3 is a bytes
+        self.assertEqual(escaped, text_clean_a.encode())
