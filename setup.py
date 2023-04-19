@@ -17,7 +17,6 @@ with open(os.path.join(HERE, "src", "metadata_utils", "__init__.py")) as v_file:
 
 requires = []
 tests_require = [
-    "six",
     "pytest",
 ]
 testing_extras = tests_require + []
@@ -32,6 +31,7 @@ setup(
     author="Jonathan Vanasco",
     author_email="jonathan@findmeon.com",
     zip_safe=False,
+    python_requires=">=3.6",
     keywords="web",
     install_requires=requires,
     tests_require=tests_require,
@@ -43,12 +43,18 @@ setup(
         where="src",
     ),
     package_dir={"": "src"},
+    package_data={"metadata_utils": ["py.typed"]},
     include_package_data=True,
     classifiers=[
         "Intended Audience :: Developers",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "License :: OSI Approved :: MIT License",
     ],
     license="MIT",
