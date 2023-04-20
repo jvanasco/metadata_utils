@@ -2,8 +2,9 @@
 """
 import os
 import re
-from setuptools import setup
+
 from setuptools import find_packages
+from setuptools import setup
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -17,6 +18,7 @@ with open(os.path.join(HERE, "src", "metadata_utils", "__init__.py")) as v_file:
 
 requires = []
 tests_require = [
+    "mypy",
     "pytest",
 ]
 testing_extras = tests_require + []
