@@ -3,7 +3,7 @@ import unicodedata
 from xml.sax.saxutils import escape
 from xml.sax.saxutils import unescape
 
-__VERSION__ = "0.2.0"
+__VERSION__ = "0.2.1"
 
 
 # ==============================================================================
