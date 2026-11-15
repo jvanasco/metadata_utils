@@ -31,6 +31,11 @@ class TestEscaping(unittest.TestCase):
         unescaped = metadata_utils.html_attribute_unescape(escaped)
         self.assertEqual(unescaped, self.text_raw)
 
+    def test_roundtrip_preserves_literal_entity(self) -> None:
+        escaped = metadata_utils.html_attribute_escape("&quot;")
+        self.assertEqual(escaped, "&amp;quot;")
+        self.assertEqual(metadata_utils.html_attribute_unescape(escaped), "&quot;")
+
 
 class TestCleanAscii(unittest.TestCase):
     def test_NFKD(self) -> None:
@@ -46,3 +51,8 @@ class TestCleanAscii(unittest.TestCase):
         escaped = metadata_utils.force_clean_ascii_NFKC(text_unicode)
         # py3 is a bytes
         self.assertEqual(escaped, text_clean_a.encode())
+
+    def test_compatibility_ligature(self) -> None:
+        text = "\ufb01 caf\xe9"
+        self.assertEqual(metadata_utils.force_clean_ascii_NFKD(text), b"fi cafe")
+        self.assertEqual(metadata_utils.force_clean_ascii_NFKC(text), b"fi caf")
