@@ -1,3 +1,10 @@
+1.0.0
+    * Add helper examples and test entity round trips and compatibility normalization.
+    * Consolidate packaging and tox configuration and add coverage reporting.
+    * Extend the test matrix through Python 3.15 while retaining Python 3.6+.
+    * Document the quoted HTML attribute context and tighten type annotations.
+    * Use the official Black pre-commit mirror.
+
 0.2.1
     * minor formatting
 0.2.0

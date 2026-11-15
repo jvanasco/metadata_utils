@@ -1,42 +1,72 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
 name: Python package
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
+  test:
+    runs-on: ubuntu-24.04
     strategy:
+      fail-fast: false
       matrix:
-        os:
-          - "ubuntu-latest"        
-        python-version:
-          - "3.7"
-          - "3.8"
-          - "3.9"
-          - "3.10"
-          - "3.11"
         include:
-          # ubuntu-latest[22.04] does not have: py36
-          - os: "ubuntu-20.04"
-            python-version: "3.6"
+          - tox-env: py36
+            image: python:3.6.15-buster
+          - tox-env: py37
+            image: python:3.7.17-bullseye
+          - tox-env: py38
+            python-version: '3.8'
+          - tox-env: py39
+            python-version: '3.9'
+          - tox-env: py310
+            python-version: '3.10'
+          - tox-env: py311
+            python-version: '3.11'
+          - tox-env: py312
+            python-version: '3.12'
+          - tox-env: py313
+            python-version: '3.13'
+          - tox-env: py314
+            python-version: '3.14'
+          - tox-env: py315
+            python-version: '3.15'
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install --upgrade tox setuptools flake8 pytest
-        pip list
-    - name: Test with pytest
-      run: |
-        tox -e py -- ${{ matrix.pytest-args }}
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        if: ${{ !matrix.image }}
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run tests
+        if: ${{ !matrix.image }}
+        env:
+          TOX_ENV: ${{ matrix.tox-env }}
+        run: |
+          python -m pip install 'tox>=4,<5'
+          python -m tox -e "$TOX_ENV"
+      - name: Run legacy Python tests
+        if: matrix.image
+        env:
+          PYTHON_IMAGE: ${{ matrix.image }}
+          TOX_ENV: ${{ matrix.tox-env }}
+        run: |
+          docker run --rm --volume "$PWD:/work" --workdir /work \
+            --env TOX_ENV "$PYTHON_IMAGE" sh -ec '
+              python -m pip install tox==3.28.0
+              python -m tox -e "$TOX_ENV"
+            '
+      - name: Check typing
+        if: matrix.tox-env == 'py314'
+        run: python -m tox -e mypy
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: coverage-${{ matrix.tox-env }}
+          path: htmlcov/${{ matrix.tox-env }}
